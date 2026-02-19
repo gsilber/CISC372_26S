@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-# Set up autograder files
-
-cp /autograder/submission/hw1.c /autograder/source/hw1.c
-
-cd /autograder/source
-
-python3 run_tests.py
