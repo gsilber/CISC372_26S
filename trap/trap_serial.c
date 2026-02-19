@@ -27,6 +27,7 @@ double Trap(double start, double end, unsigned long long trap_count,double base_
 	approx=base_len*approx;
 	return approx;
 }
+
 int main(int argc,char** argv){
 	unsigned long long  traps=getNumTraps(argc,argv);
 	double h=(b-a)/traps;
