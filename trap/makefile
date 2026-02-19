@@ -20,4 +20,4 @@ function.o: function.c
 	gcc $(FLAGS) -c function.c
 
 clean:
-	rm -f trap_serial trap_mpi_1 *.o
+	rm -f trap_serial trap_mpi_1 trap_mpi_2 *.o
