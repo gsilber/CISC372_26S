@@ -42,11 +42,13 @@ int main(int argc,char** argv){
 	unsigned long long  traps;
 	getNumTraps(my_rank,com_sz,&traps);
 	double h=(b-a)/traps;
-
+	
 	//here is where the parallel stuff comes in.
 	unsigned long long local_traps=traps/com_sz;
 	double start=a+my_rank*local_traps*h;
 	double end=start+local_traps*h;
+	MPI_Barrier(MPI_COMM_WORLD); //Make sure all processes have finished getting the number of trapezoids before we start the timer
+	double mytime = MPI_Wtime();
 	double local_approx=Trap(start,end,local_traps,h);
 	double approx=0;
 	//Do a tree reduction to sum up the local approximations from each process and store the result in approx on process 0
@@ -59,7 +61,8 @@ int main(int argc,char** argv){
 	 0, 				//The process rank where approx will be populated by the reduction operation
 	 MPI_COMM_WORLD); //Same as always
 	if (my_rank==0){
-		printf("The ln(3) is approximately %.20f with %llu trapezoids\n",approx,traps);
+		mytime = MPI_Wtime()-mytime;
+		printf("The ln(3) is approximately %.20f with %llu trapezoids in %lf seconds\n",approx,traps,mytime);
 	}
 
 	MPI_Finalize();

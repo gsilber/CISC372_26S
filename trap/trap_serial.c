@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
 #include "function.h"
 
 #define DEFAULT_NUM_TRAPS 20
@@ -28,6 +30,9 @@ double Trap(double start, double end, unsigned long long trap_count,double base_
 int main(int argc,char** argv){
 	unsigned long long  traps=getNumTraps(argc,argv);
 	double h=(b-a)/traps;
+	clock_t startclock=clock();
 	double approx=Trap(a,b,traps,h);
-	printf("The ln(3) is approximately %.20f with %llu trapezoids\n",approx,traps);
+	clock_t endclock=clock();
+	double time_spent = (double)(endclock - startclock) / CLOCKS_PER_SEC;
+	printf("The ln(3) is approximately %.20f with %llu trapezoids in %lf seconds\n",approx,traps,time_spent);
 }
