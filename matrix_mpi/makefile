@@ -6,7 +6,7 @@ LDFLAGS = -lm
 TARGETS = matrix_serial
 all: $(TARGETS)
 
-matrix_serial: matrix_serial.o
+matrix_serial: matrix_serial.o matrix.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 %.o: %.c matrix.h
